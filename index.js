@@ -98,7 +98,9 @@ app.get("/generateBillPDF/:billId", async (req, res) => {
       totalAmountInWords: bill.totalAmountInWords,
     });
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      headless: "new", // Opt-in to the new Headless mode
+    });
     const page = await browser.newPage();
 
     await page.setContent(html, {
