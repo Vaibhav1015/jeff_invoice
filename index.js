@@ -118,7 +118,7 @@ app.get("/generateBillPDF/:billId", async (req, res) => {
 
     return res.json({
       message: "PDF generated successfully",
-      pdfUrl: `/download/${pdfFileName}`,
+      pdfUrl: `https://invoice-bill.onrender.com/download/${pdfFileName}`,
     });
   } catch (err) {
     console.error("Error generating PDF:", err);
