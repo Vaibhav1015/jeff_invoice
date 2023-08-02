@@ -11,10 +11,13 @@ const port = 3000;
 app.use(bodyParser.json());
 
 // Connect to MongoDB (Replace 'mongodb://localhost/bill-receipt' with your MongoDB connection string)
-mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://vaibhav10:Vaibhav1015@cluster0.on5gazj.mongodb.net/bill-receipt?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 const Bill = require("./models/bill"); // Assuming you have a Bill model for MongoDB
 const { price_in_words } = require("./numberToWords");
 
