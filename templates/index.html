@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0px;
+            font-family: "Roboto", sans-serif;
+            font-size: 16px;
+            color: #353740;
+            padding: 6px;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .font-sizes {
+            font-size: 12px;
+        }
+
+        .width100 {
+            width: 100%;
+        }
+
+        .number_row {
+            width: 10%;
+            text-align: center;
+        }
+
+        .tenant_details,
+        .amount_details {
+            text-align: justify;
+        }
+
+        .receipt_div {
+            /* width: 35% !important; */
+            margin: auto;
+            margin-top: 10px;
+            /* padding: 4px; */
+            border: 2px solid black;
+        }
+
+        .rs_div {
+            width: 17%;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .outlined {
+            border-left: 2px solid black;
+        }
+
+        thead,
+        tfoot {
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+        }
+
+        td {
+            padding: 4px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .receipt_div {
+                width: 100% !important;
+                font-size: 12px;
+            }
+
+            .tenant_details,
+            .amount_details {
+                text-align: start;
+            }
+
+            .total-amount-line {
+                border-bottom: 2px solid black;
+            }
+        }
+
+        @media (min-width: 768px) {
+            /* .receipt_div {
+                width: 80% !important;
+            } */
+
+            .total-amount-line {
+                border-bottom: 2px solid black;
+            }
+        }
+
+        .second-table tr,
+        .mini-table tr {
+            border-bottom: 1px solid gray;
+        }
+    </style>
+</head>
+
+<body>
+    <table class="receipt_div" width="100%" style=" height: 100%;">
+        <tbody>
+            <tr>
+                <td style="padding: 0;">
+                    <table width="100%">
+                        <tbody>
+                            <tr>
+                                <td colspan="6">
+                                    <div style="border-bottom: 2px solid; padding: 4px; ">
+                                        <h2 class="" style="text-align: center; color: red; margin: 5px">
+                                            J.M. INDUSTRIES
+                                        </h2>
+                                        <p class="" style="
+                                          text-align: center;
+                                          margin: 0;
+                                          font-weight: bold;
+                                          font-size: 12px;
+                                        ">
+                                            Specialist In :MACHINERY ENGINEERING,PRECISION JOB WORKS
+                                        </p>
+
+                                    </div>
+
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: none;" width="100%">
+
+                                <td colspan="2">
+
+
+                                    <p class="font-sizes">
+                                        Gala No 10, Raj Industrial Estate, Plot No A- 423 to A-425, Opp
+                                        EMCO Company,Road No 28, Wagle Estate Thane -400604
+                                    </p>
+
+
+
+                                </td>
+                                <td colspan="2">
+                                    <div style=" margin-left: 15px">
+                                        <p class="font-sizes">GST NO:xyzasfgga</p>
+                                        <p class="font-sizes">Email:xyz@gmail.com</p>
+                                        <p class="font-sizes">ph: +91123456789</p>
+                                    </div>
+
+                                </td>
+                                <td colspan="2">
+                                    <div style="">
+                                        <p class="font-sizes" style="font-weight: bold">Invoice No:</p>
+                                        <p class="font-sizes" style="font-weight: bold">Invoice Date:</p>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr style="border-bottom: none;">
+                                <td colspan="3">
+                                    <table width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p style="font-weight: bold;">Billing Address:</p>
+                                                    <p>
+                                                        <%= customerName %>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p><b>Tel:</b> 12347895</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p><b>GST No:</b>2457891GP</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td colspan="3">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p style="font-weight: bold;">Delivery Address:</p>
+                                                    <p>
+                                                        S.K.Steels, 42,Kapadia Chambers,Broach Street ,Carnac Bundar,
+                                                        Mumbai
+                                                        -9
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div>
+
+                                                        <p><b>Tel:</b> 12347895</p>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+
+                                                    <p><b>GST No:</b>2457891GP</p>
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                    <table class="second-table" style="width: 100%; font-size: 12px;">
+                        <colgroup>
+                            <col />
+                            <col class="outlined" />
+                            <col class="outlined" />
+                            <col class="outlined" />
+                            <col class="outlined" />
+                            <col class="outlined" />
+                        </colgroup>
+                        <thead class="table_head" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <th class="">Sr. NO</th>
+                                <th class="">Description of Goods</th>
+                                <th class="">HSN Code</th>
+                                <th class="">Quantity</th>
+                                <th class="">Rate</th>
+                                <th class="" style="line-height: 30px">AMOUNT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td scope="row" class="number_row">1</td>
+                                <td>Enterance Fees</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">
+                                    <%= totalAmount %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">2</td>
+                                <td>Shares</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">100</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">3</td>
+                                <td>Property Tax</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">1,20,000</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">4</td>
+                                <td>Water Charges</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">150</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">5</td>
+                                <td>Electricity Charges</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">200</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">6</td>
+                                <td>Parking Charges</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">250</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">7</td>
+                                <td>Sinking Fund</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">300</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">8</td>
+                                <td>Repairs & Maintanance</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">400</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">9</td>
+                                <td>Non Occupancy Charges</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">750</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">10</td>
+                                <td>Donation</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">500</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">11</td>
+                                <td>Parking Allotement</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">250</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">12</td>
+                                <td>Interest on defaulted dues</td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">450</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">13</td>
+                                <td></td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">450</td>
+                            </tr>
+                            <tr>
+                                <td scope="row" class="number_row">14</td>
+                                <td></td>
+                                <td>...</td>
+                                <td>...</td>
+                                <td class="">400</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="height: 25px;"></td>
+                                <td class="rs_div" colspan="1">Net Total</td>
+                                <td class="rs_div" colspan="1">459283</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <table style="width: 100%;">
+                                        <colgroup>
+                                            <col />
+                                            <col class="outlined" />
+                                            <col class="outlined" />
+                                        </colgroup>
+                                        <tbody>
+                                            <tr style="border-bottom: none;">
+                                                <td colspan="4">
+                                                    <p style="font-weight: bold;">Company's Bank Details</p>
+                                                    <div style="display: flex; font-weight: bold;">
+                                                        <p>Name:
+                                                        <p>JM INDUSTRIES</p>
+                                                        </p>
+                                                    </div>
+                                                    <div style="display: flex; font-weight: bold;">
+                                                        <p>A/c No.:
+                                                        <p>344921010000041</p>
+                                                        </p>
+                                                    </div>
+                                                    <div style="display: flex; font-weight: bold;">
+                                                        <p>Bank:
+                                                        <p>UNION BANK OF INDIA</p>
+                                                        </p>
+                                                    </div>
+                                                    <div style="display: flex; font-weight: bold;">
+                                                        <p>Branch:
+                                                        <p>THANE-WAGLE ESTATE</p>
+                                                        </p>
+                                                    </div>
+                                                    <div style="display: flex; font-weight: bold;">
+                                                        <p>IFSC:
+                                                        <p>UBIN0934496</p>
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td class="multiple-table" colspan="1">
+                                    <table class="mini-table">
+                                        <tbody>
+                                            <tr style=" height: 45px; font-weight: bold;">
+                                                <td class="rs_div" colspan="1">Add : CGST @ 9%</td>
+                                            </tr>
+                                            <tr style=" height: 45px; font-weight: bold;">
+                                                <td class="rs_div" colspan="1">Add : SGST @ 9%</td>
+                                            </tr>
+                                            <tr style=" height: 45px; font-weight: bold;">
+                                                <td class="rs_div" colspan="1">Add : IGST @ 18%</td>
+                                            </tr>
+                                            <tr style=" height: 45px; font-weight: bold; border-bottom: none;">
+                                                <td class="rs_div" colspan="1">Grand Total</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td colspan="1">
+                                    <table>
+                                        <tbody>
+                                            <tr style=" height: 45px">
+                                                <td class="rs_div" colspan="1">500</td>
+                                            </tr>
+                                            <tr style=" height: 45px">
+                                                <td class="rs_div" colspan="1">900</td>
+                                            </tr>
+                                            <tr style=" height: 45px">
+                                                <td class="rs_div" colspan="1">1000</td>
+                                            </tr>
+                                            <tr style=" height: 45px ; border-bottom: none;">
+                                                <td class="rs_div" colspan="1">1000</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table style="width: 100%; ">
+                        <tbody style=" font-size: 12px;">
+                            <tr style="border-bottom: none;">
+                                <td>
+                                    <div class="total-amount-line"
+                                        style="line-height:1.5 ;border-bottom:2px solid black; font-weight: bold; padding: 5px;">
+                                        Total Amount (₹ - In Words):Two Lakh thirty four thousand five hundred eighty
+                                        four only.
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="" style="margin: 5px 0px 0px 0px; padding: 5px;">
+                                        <p style="margin: 0px 0px 60px 0px; font-style: italic; font-weight: bold;">
+                                            For: J.M. INDUSTRIES</p>
+                                        <p style="font-weight: bold;">Authorised Signatory</p>
+                                        <p>Declaration: We declare that this invoice shows the actual price of the goods
+                                            described and that all particulars are true and correct</p>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</body>
+
+</html>
