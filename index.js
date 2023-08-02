@@ -167,6 +167,7 @@ app.get("/generateBillPDF/:billId", async (req, res) => {
 
     const browser = await puppeteer.launch({
       headless: "new", // Opt-in to the new Headless mode
+      executablePath: "/path/to/chrome",
     });
     const page = await browser.newPage();
 
