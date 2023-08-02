@@ -189,7 +189,7 @@ app.get("/generateBillPDF/:billId", async (req, res) => {
 
       return res.json({
         message: "PDF generated successfully",
-        pdfUrl: `/download/${pdfFileName}`,
+        pdfUrl: `/public/${pdfFileName}`,
       });
     });
   } catch (err) {
@@ -199,7 +199,7 @@ app.get("/generateBillPDF/:billId", async (req, res) => {
 });
 
 // Serve the PDF files
-app.use("/download", express.static("public"));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 // Start the server
 app.listen(port, () => {
