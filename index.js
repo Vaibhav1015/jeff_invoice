@@ -150,7 +150,10 @@ app.post("/add_new_invoice", async (req, res) => {
 // });
 
 // new code
-
+process.env["OPENSSL_CONF"] = path.resolve(
+  __dirname,
+  "C:/Users/ETPL-08/Downloads/PortableGit/usr/ssl/openssl.cnf"
+);
 app.get("/generate-invoice/:billId", async (req, res) => {
   try {
     const billId = req.params.billId;
