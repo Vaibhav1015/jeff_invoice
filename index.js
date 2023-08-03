@@ -198,7 +198,7 @@ app.post("/add_new_invoice", async (req, res) => {
 //     return res.status(500).json({ error: "Something went wrong" });
 //   }
 // });
-
+process.env.PUPPETEER_CACHE_DIR = path.join(__dirname, "puppeteer-cache");
 app.get("/generate-invoice/:billId", async (req, res) => {
   try {
     const billId = req.params.billId;
@@ -226,10 +226,12 @@ app.get("/generate-invoice/:billId", async (req, res) => {
 
     const html = await ejs.renderFile(templatePath, templateData);
     const pdfPath = path.join(__dirname, "public/output.pdf");
-
-    const browser = await puppeteer.launch({
+    const puppeteerOptions = {
+      // ... any other options you need
       headless: "new", // Opt-in to the new Headless mode
-    });
+      userDataDir: process.env.PUPPETEER_CACHE_DIR,
+    };
+    const browser = await puppeteer.launch(puppeteerOptions);
     const page = await browser.newPage();
     await page.setContent(html);
     await page.pdf({ path: pdfPath, format: "A4", printBackground: true });
