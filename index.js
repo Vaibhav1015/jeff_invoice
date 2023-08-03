@@ -185,7 +185,7 @@ app.get("/generate-invoice/:billId", async (req, res) => {
     // PDF options
     const options = {
       format: "A4", // or "Letter" for US Letter size
-      border: "10px", // You can customize the border if needed
+      // border: "10px", // You can customize the border if needed
     };
 
     pdf
