@@ -179,8 +179,8 @@ app.get("/generate-invoice/:billId", async (req, res) => {
       sGst: bill.sGst,
       totalAmountInWords: bill.totalAmountInWords,
     };
-    // await ejs.renderFile(templatePath, templateData);
-    const html = "<html><body><h1>Hello, World!</h1></body></html>";
+
+    const html = await ejs.renderFile(templatePath, templateData);
 
     // PDF options
     const options = {
