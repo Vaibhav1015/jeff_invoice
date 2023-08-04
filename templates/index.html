@@ -49,7 +49,7 @@
             width: 17%;
         }
 
-        table {
+        .table {
             border-collapse: collapse;
             margin-top: 10px;
             margin-bottom: 10px;
@@ -99,19 +99,25 @@
         .mini-table tr {
             border-bottom: 1px solid gray;
         }
+
+        .mini-table {
+            margin-top: 0;
+            margin-bottom: 0;
+            border-collapse: collapse;
+        }
     </style>
 </head>
 
 <body>
-    <table class="receipt_div" width="100%" style=" height: 100%;">
+    <table class="table receipt_div" width="100%" style=" height: 100%;">
         <tbody>
             <tr>
                 <td style="padding: 0;">
-                    <table width="100%">
+                    <table class="table" width="100%">
                         <tbody>
                             <tr>
-                                <td colspan="6">
-                                    <div style="border-bottom: 2px solid; padding: 4px; ">
+                                <td colspan="2">
+                                    <div>
                                         <h2 class="" style="text-align: center; color: red; margin: 5px">
                                             J.M. INDUSTRIES
                                         </h2>
@@ -127,10 +133,10 @@
                                     </div>
 
                                 </td>
-                            </tr>
-                            <tr style="border-bottom: none;" width="100%">
 
-                                <td colspan="2">
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="border-bottom: 2px solid; padding: 4px; text-align: center;">
 
 
                                     <p class="font-sizes">
@@ -141,8 +147,12 @@
 
 
                                 </td>
-                                <td colspan="2">
-                                    <div style=" margin-left: 15px">
+                            </tr>
+                            <tr style="border-bottom: none;" width="100%">
+
+
+                                <td width="50%">
+                                    <div style=" margin-left: 20px">
                                         <p class="font-sizes">GST NO:xyzasfgga</p>
                                         <p class="font-sizes">Email:xyz@gmail.com</p>
                                         <p class="font-sizes">ph: +91123456789</p>
@@ -150,7 +160,7 @@
 
                                 </td>
                                 <td>
-                                    <div style="">
+                                    <div>
                                         <p class="font-sizes" style="font-weight: bold">Invoice No:123457890</p>
                                         <p class="font-sizes" style="font-weight: bold">Invoice Date:15/08/2023</p>
                                     </div>
@@ -158,8 +168,8 @@
 
                             </tr>
                             <tr style="border-bottom: none; font-size: 12px;">
-                                <td>
-                                    <table width="100%">
+                                <td width="50%">
+                                    <table class="table" width="100%" style="margin-left: 15px;">
                                         <tbody>
                                             <tr>
                                                 <td>
@@ -182,11 +192,11 @@
                                         </tbody>
                                     </table>
                                 </td>
-                                <td colspan="3">
-                                    <table>
+                                <td>
+                                    <table class="table">
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <td width="50%">
                                                     <p style="font-weight: bold;">Delivery Address:</p>
                                                     <p>
                                                         S.K.Steels, 42,Kapadia Chambers,Broach Street ,Carnac Bundar,
@@ -220,7 +230,7 @@
 
                         </tbody>
                     </table>
-                    <table class="second-table" style="width: 100%; font-size: 12px;">
+                    <table class="table second-table" style="width: 100%; font-size: 12px;">
                         <colgroup>
                             <col />
                             <col class="outlined" />
@@ -347,7 +357,7 @@
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <table style="width: 100%;">
+                                    <table style="width: 100%;" cellspacing="0">
                                         <colgroup>
                                             <col />
                                             <col class="outlined" />
@@ -388,36 +398,36 @@
                                     </table>
                                 </td>
                                 <td class="multiple-table" colspan="1">
-                                    <table class="mini-table">
+                                    <table class=" mini-table">
                                         <tbody>
-                                            <tr style=" height: 45px; font-weight: bold;">
+                                            <tr style="  font-weight: bold;">
                                                 <td class="rs_div" colspan="1">Add : CGST @ 9%</td>
                                             </tr>
-                                            <tr style=" height: 45px; font-weight: bold;">
+                                            <tr style="  font-weight: bold;">
                                                 <td class="rs_div" colspan="1">Add : SGST @ 9%</td>
                                             </tr>
-                                            <tr style=" height: 45px; font-weight: bold;">
+                                            <tr style="  font-weight: bold;">
                                                 <td class="rs_div" colspan="1">Add : IGST @ 18%</td>
                                             </tr>
-                                            <tr style=" height: 45px; font-weight: bold; border-bottom: none;">
+                                            <tr style="  font-weight: bold; border-bottom: none;">
                                                 <td class="rs_div" colspan="1">Grand Total</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </td>
                                 <td colspan="1">
-                                    <table>
+                                    <table class="table mini-table">
                                         <tbody>
-                                            <tr style=" height: 45px">
+                                            <tr>
                                                 <td class="rs_div" colspan="1">500</td>
                                             </tr>
-                                            <tr style=" height: 45px">
+                                            <tr>
                                                 <td class="rs_div" colspan="1">900</td>
                                             </tr>
-                                            <tr style=" height: 45px">
+                                            <tr>
                                                 <td class="rs_div" colspan="1">1000</td>
                                             </tr>
-                                            <tr style=" height: 45px ; border-bottom: none;">
+                                            <tr style=" border-bottom: none;">
                                                 <td class="rs_div" colspan="1">1000</td>
                                             </tr>
                                         </tbody>
@@ -426,7 +436,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <table style="width: 100%; ">
+                    <table class="table" style="width: 100%; ">
                         <tbody style=" font-size: 12px;">
                             <tr style="border-bottom: none;">
                                 <td>

@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
-// const PDFDocument = require("pdfkit");
 const pdf = require("html-pdf");
 const fs = require("fs");
 const bodyParser = require("body-parser");
@@ -77,77 +76,6 @@ app.post("/add_new_invoice", async (req, res) => {
     return res.status(500).json({ error: "Something went wrong" });
   }
 });
-
-// Multer configuration for file upload
-// const storage = multer.diskStorage({
-//   destination: "public", // File destination directory
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//     const extname = path.extname(file.originalname);
-//     cb(null, "bill_receipt_" + uniqueSuffix + extname);
-//   },
-// });
-
-// const upload = multer({ storage });
-
-// app.get("/generate-invoice/:billId", async (req, res) => {
-//   try {
-//     const billId = req.params.billId;
-//     const bill = await Bill.findOne({ _id: billId });
-//     if (!bill) {
-//       return res.status(404).json({ error: "Bill not found" });
-//     }
-//     const templatePath = path.join(__dirname, "templates/index.ejs");
-//     const templateData = {
-//       // Add your data here to replace the placeholders in the template
-//       deliveryAddress: bill.deliveryAddress.address,
-//       deliveryTel: bill.deliveryAddress.tel,
-//       deliveryGst: bill.deliveryAddress.gstNo,
-//       billingAddress: bill.billingAddress.address,
-//       billingTel: bill.billingAddress.tel,
-//       billingGst: bill.billingAddress.gstNo,
-//       items: bill.items,
-//       netTotal: bill.netTotal,
-//       grandTotal: bill.grandTotal,
-//       cGst: bill.cGst,
-//       iGst: bill.iGst,
-//       sGst: bill.sGst,
-//       totalAmountInWords: bill.totalAmountInWords,
-//     };
-
-//     const html = await ejs.renderFile(templatePath, templateData);
-//     const pdfPath = path.join(__dirname, "public/output.pdf");
-//     // const puppeteerOptions = {
-//     //   headless: "new", // Opt-in to the new Headless mode
-//     //   userDataDir: process.env.PUPPETEER_CACHE_DIR,
-//     // };
-//     const browser = await puppeteerExtra.launch({
-//       headless: "new",
-//     });
-//     const page = await browser.newPage();
-//     await page.setContent(html);
-//     await page.pdf({ path: pdfPath, format: "A4", printBackground: true });
-//     await browser.close();
-
-//     const pdfLink = `<a href="/download-pdf">Download Invoice Bill PDF</a>`;
-//     res.send(pdfLink);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send("An error occurred while generating the PDF.");
-//   }
-// });
-
-// app.get("/download-pdf", (req, res) => {
-//   try {
-//     const pdfPath = path.join(__dirname, "public/output.pdf");
-//     res.setHeader("Content-Type", "application/pdf");
-//     res.setHeader("Content-Disposition", "attachment; filename=output.pdf");
-//     fs.createReadStream(pdfPath).pipe(res);
-//   } catch (error) {
-//     console.error(err);
-//     res.status(500).send("An error occurred while download the PDF.");
-//   }
-// });
 
 // new code
 process.env["OPENSSL_CONF"] = path.resolve(
