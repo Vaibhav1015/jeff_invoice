@@ -13,13 +13,20 @@ const port = 3000;
 app.use(bodyParser.json());
 
 // Connect to MongoDB (Replace 'mongodb://localhost/bill-receipt' with your MongoDB connection string)
-mongoose.connect(
-  "mongodb+srv://vaibhav10:Vaibhav1015@cluster0.on5gazj.mongodb.net/bill-receipt?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose
+  .connect(
+    "mongodb+srv://vaibhav10:Vaibhav1015@cluster0.on5gazj.mongodb.net/bill-receipt?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log("Error connecting to MongoDB", err);
+  });
 const Bill = require("./models/bill"); // Assuming you have a Bill model for MongoDB
 const { price_in_words } = require("./numberToWords");
 
@@ -144,9 +151,6 @@ app.get("/download-pdf", (req, res) => {
     res.status(500).send("An error occurred while downloading the PDF.");
   }
 });
-
-// Serve the PDF files
-// app.use("/public", express.static(path.join(__dirname, "public")));
 
 // Start the server
 app.listen(port, () => {
