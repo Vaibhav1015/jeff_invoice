@@ -118,10 +118,10 @@
               <tr>
                 <td colspan="2">
                   <div>
-                    <h2 class="" style="text-align: center; color: red; margin: 5px">
+                    <h2 class="font-sizes" style="text-align: center; color: red; margin: 5px">
                       J.M. INDUSTRIES
                     </h2>
-                    <p class="" style="
+                    <p class="font-sizes" style="
                                           text-align: center;
                                           margin: 0;
                                           font-weight: bold;
@@ -173,22 +173,22 @@
                     <tbody>
                       <tr>
                         <td>
-                          <p style="font-weight: bold;">Billing Address:</p>
-                          <p>
+                          <p class="font-sizes" style="font-weight: bold;">Billing Address:</p>
+                          <p class="font-sizes">
                             <%= billingAddress %>
                           </p>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <p><b>Tel:</b>
+                          <p class="font-sizes"><b>Tel:</b>
                             <%= billingTel %>
                           </p>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <p><b>GST No:</b>
+                          <p class="font-sizes"><b>GST No:</b>
                             <%= billingGst %>
                           </p>
                         </td>
@@ -201,8 +201,8 @@
                     <tbody>
                       <tr>
                         <td width="50%">
-                          <p style="font-weight: bold;">Delivery Address:</p>
-                          <p>
+                          <p class="font-sizes" style="font-weight: bold;">Delivery Address:</p>
+                          <p class="font-sizes">
                             <%= deliveryAddress %>
                           </p>
                         </td>
@@ -211,7 +211,7 @@
                         <td>
                           <div>
 
-                            <p><b>Tel:</b>
+                            <p class="font-sizes"><b>Tel:</b>
                               <%= deliveryTel %>
                             </p>
 
@@ -221,7 +221,7 @@
                       <tr>
                         <td>
 
-                          <p><b>GST No:</b>
+                          <p class="font-sizes"><b>GST No:</b>
                             <%= deliveryGst %>
                           </p>
 
@@ -247,12 +247,12 @@
             </colgroup>
             <thead class="table_head" cellpadding="0" cellspacing="0">
               <tr>
-                <th class="">Sr. NO</th>
-                <th class="">Description of Goods</th>
-                <th class="">HSN Code</th>
-                <th class="">Quantity</th>
-                <th class="">Rate</th>
-                <th class="" style="line-height: 30px">AMOUNT</th>
+                <th class="font-sizes">Sr. NO</th>
+                <th class="font-sizes">Description of Goods</th>
+                <th class="font-sizes">HSN Code</th>
+                <th class="font-sizes">Quantity</th>
+                <th class="font-sizes">Rate</th>
+                <th class="font-sizes" style="line-height: 30px">AMOUNT</th>
               </tr>
             </thead>
             <tbody>
@@ -280,8 +280,8 @@
                 <% } %>
                   <tr>
                     <td colspan="4" style="height: 25px;"></td>
-                    <td class="rs_div" colspan="1">Net Total</td>
-                    <td class="rs_div" colspan="1">
+                    <td class="rs_div font-sizes" colspan="1">Net Total</td>
+                    <td class="rs_div font-sizes" colspan="1">
                       <%= netTotal %>
                     </td>
                   </tr>
@@ -296,12 +296,13 @@
                         <tbody>
                           <tr style="border-bottom: none;">
                             <td colspan="4">
-                              <p style="font-weight: bold;">Company's Bank Details</p>
-                              <p style=" font-weight: bold;">Name: JM INDUSTRIES</p>
-                              <p style="display: flex; font-weight: bold;">A/c No.: 344921010000041 </p>
-                              <p style="font-weight: bold;">Bank: UNION BANK OF INDIA</p>
-                              <p style="font-weight: bold;">Branch: THANE-WAGLE ESTATE</p>
-                              <p style="font-weight: bold;">IFSC: UBIN0934496</p>
+                              <p class="font-sizes" style="font-weight: bold;">Company's Bank Details</p>
+                              <p class="font-sizes" style=" font-weight: bold;">Name: JM INDUSTRIES</p>
+                              <p class="font-sizes" style="display: flex; font-weight: bold;">A/c No.: 344921010000041
+                              </p>
+                              <p class="font-sizes" style="font-weight: bold;">Bank: UNION BANK OF INDIA</p>
+                              <p class="font-sizes" style="font-weight: bold;">Branch: THANE-WAGLE ESTATE</p>
+                              <p class="font-sizes" style="font-weight: bold;">IFSC: UBIN0934496</p>
                             </td>
                           </tr>
                         </tbody>
@@ -311,16 +312,16 @@
                       <table class=" mini-table">
                         <tbody>
                           <tr style="  font-weight: bold;">
-                            <td class="rs_div" colspan="1">Add : CGST @ 9%</td>
+                            <td class="rs_div font-sizes" colspan="1">Add : CGST @ 9%</td>
                           </tr>
                           <tr style="  font-weight: bold;">
-                            <td class="rs_div" colspan="1">Add : SGST @ 9%</td>
+                            <td class="rs_div font-sizes" colspan="1">Add : SGST @ 9%</td>
                           </tr>
                           <tr style="  font-weight: bold;">
-                            <td class="rs_div" colspan="1">Add : IGST @ 18%</td>
+                            <td class="rs_div font-sizes" colspan="1">Add : IGST @ 18%</td>
                           </tr>
                           <tr style="  font-weight: bold; border-bottom: none;">
-                            <td class="rs_div" colspan="1">Grand Total</td>
+                            <td class="rs_div font-sizes" colspan="1">Grand Total</td>
                           </tr>
                         </tbody>
                       </table>
@@ -329,22 +330,22 @@
                       <table class="table mini-table">
                         <tbody>
                           <tr>
-                            <td class="rs_div" colspan="1">
+                            <td class="rs_div font-sizes" colspan="1">
                               <%= cGst %>
                             </td>
                           </tr>
                           <tr>
-                            <td class="rs_div" colspan="1">
+                            <td class="rs_div font-sizes" colspan="1">
                               <%= sGst %>
                             </td>
                           </tr>
                           <tr>
-                            <td class="rs_div" colspan="1">
+                            <td class="rs_div font-sizes" colspan="1">
                               <%= iGst %>
                             </td>
                           </tr>
                           <tr style=" border-bottom: none;">
-                            <td class="rs_div" colspan="1">
+                            <td class="rs_div font-sizes" colspan="1">
                               <%= grandTotal %>
                             </td>
                           </tr>
@@ -358,7 +359,7 @@
             <tbody>
               <tr style="border-bottom: none;">
                 <td>
-                  <div class="total-amount-line"
+                  <div class="total-amount-line font-sizes"
                     style="line-height:1.5 ;border-bottom:2px solid black; font-weight: bold; padding: 5px;">
                     <%= totalAmountInWords %>
                   </div>
@@ -367,10 +368,10 @@
               <tr>
                 <td>
                   <div class="" style="margin: 5px 0px 0px 0px; padding: 5px;">
-                    <p style="margin: 0px 0px 60px 0px; font-style: italic; font-weight: bold;">
+                    <p class="font-sizes" style="margin: 0px 0px 60px 0px; font-style: italic; font-weight: bold;">
                       For: J.M. INDUSTRIES</p>
-                    <p style="font-weight: bold;">Authorised Signatory</p>
-                    <p>Declaration: We declare that this invoice shows the actual price of the goods
+                    <p class="font-sizes" style="font-weight: bold;">Authorised Signatory</p>
+                    <p class="font-sizes">Declaration: We declare that this invoice shows the actual price of the goods
                       described and that all particulars are true and correct</p>
 
                   </div>
