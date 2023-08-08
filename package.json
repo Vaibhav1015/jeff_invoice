@@ -1,10 +1,9 @@
 {
-  "name": "jeff",
+  "name": "Invoice generate",
   "version": "1.0.0",
-  "description": "",
+  "description": "Invoice generating REST API's",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
@@ -12,7 +11,7 @@
     "node": ">=14.20.1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Vaibhav Andhale",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -25,7 +24,6 @@
     "node": "^20.5.0",
     "nodemon": "^3.0.1",
     "openssl": "^2.0.0",
-    "path": "^0.12.7",
-    "pdfkit": "^0.13.0"
+    "path": "^0.12.7"
   }
 }
