@@ -71,14 +71,13 @@ process.env["OPENSSL_CONF"] = path.resolve(
 
 // Date Conversion fn
 const convDate = (newDate) => {
-  return (
-    newDate.getDate() -
-    1 +
-    "/" +
-    newDate.getMonth() +
-    "/" +
-    newDate.getFullYear()
-  );
+  return new Date(newDate).toLocaleDateString();
+  // newDate.getDate() -
+  // 1 +
+  // "/" +
+  // newDate.getMonth() +
+  // "/" +
+  // newDate.getFullYear()
 };
 //To Generate pdf get request
 const getInvoicePdf = async (req, res) => {
