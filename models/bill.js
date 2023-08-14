@@ -1,6 +1,24 @@
 const mongoose = require("mongoose");
 
 const billSchema = new mongoose.Schema({
+  invoiceNo: {
+    type: String,
+  },
+  challanNo: {
+    type: String,
+  },
+  pOrderNo: {
+    type: String,
+  },
+  invoiceDate: {
+    type: Date,
+  },
+  challanDate: {
+    type: Date,
+  },
+  pOrderDate: {
+    type: Date,
+  },
   billingAddress: {
     address: {
       type: String,

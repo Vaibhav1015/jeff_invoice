@@ -36,6 +36,12 @@ const addNewInvoice = async (req, res) => {
     const grandTotal = netTotal + totalCGst + totalIGst + totalSGst;
     const totalAmountInWords = price_in_words(grandTotal);
     const dataInvoice = new Bill({
+      invoiceNo: req.body.invoiceNo,
+      challanNo: req.body.challanNo,
+      pOrderNo: req.body.pOrderNo,
+      invoiceDate: req.body.invoiceDate,
+      challanDate: req.body.challanDate,
+      pOrderDate: req.body.pOrderDate,
       billingAddress: billingAddress,
       deliveryAddress: deliveryAddress,
       items: items,
@@ -63,6 +69,17 @@ process.env["OPENSSL_CONF"] = path.resolve(
   "C:/Users/ETPL-08/Downloads/PortableGit/usr/ssl/openssl.cnf"
 );
 
+// Date Conversion fn
+const convDate = (newDate) => {
+  return (
+    newDate.getDate() -
+    1 +
+    "/" +
+    newDate.getMonth() +
+    "/" +
+    newDate.getFullYear()
+  );
+};
 //To Generate pdf get request
 const getInvoicePdf = async (req, res) => {
   try {
@@ -72,9 +89,16 @@ const getInvoicePdf = async (req, res) => {
       return res.status(404).json({ error: "Bill not found" });
     }
     const templatePath = path.join(__dirname, "../templates/index.ejs");
+
     const templateData = {
       // Add your data here to replace the placeholders in the template
       // ... (your existing data)
+      invoiceNo: bill.invoiceNo,
+      challanNo: bill.challanNo,
+      pOrderNo: bill.pOrderNo,
+      invoiceDate: convDate(bill.invoiceDate),
+      challanDate: convDate(bill.challanDate),
+      pOrderDate: convDate(bill.pOrderDate),
       deliveryAddress: bill.deliveryAddress.address,
       deliveryTel: bill.deliveryAddress.tel,
       deliveryGst: bill.deliveryAddress.gstNo,

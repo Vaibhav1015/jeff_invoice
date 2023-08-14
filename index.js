@@ -27,6 +27,9 @@ mongoose
 const invoiceRoute = require("./router/invoiceRouter");
 app.use("/", invoiceRoute);
 
+const addressRoute = require("./router/addressRouter");
+app.use("/", addressRoute);
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
