@@ -71,7 +71,11 @@ process.env["OPENSSL_CONF"] = path.resolve(
 
 // Date Conversion fn
 const convDate = (newDate) => {
-  return new Date(newDate).toLocaleDateString();
+  return new Date(newDate).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+  });
   // newDate.getDate() -
   // 1 +
   // "/" +
