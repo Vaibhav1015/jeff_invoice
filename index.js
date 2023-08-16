@@ -30,6 +30,9 @@ app.use("/", invoiceRoute);
 const addressRoute = require("./router/addressRouter");
 app.use("/", addressRoute);
 
+const userRoute = require("./router/userRouter");
+app.use("/", userRoute);
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

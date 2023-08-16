@@ -4,10 +4,11 @@ const {
   getInvoicePdf,
   downloadPdf,
 } = require("../controller/invoiceController");
+const { checkLogin } = require("../middleware/checkLogin");
 const invoiceRoute = express();
 
-invoiceRoute.post("/add_new_invoice", addNewInvoice);
-invoiceRoute.get("/generate-invoice/:billId", getInvoicePdf);
+invoiceRoute.post("/add_new_invoice", checkLogin, addNewInvoice);
+invoiceRoute.get("/generate-invoice/:billId", checkLogin, getInvoicePdf);
 invoiceRoute.get("/download-pdf", downloadPdf);
 
 module.exports = invoiceRoute;
