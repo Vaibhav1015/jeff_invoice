@@ -308,19 +308,19 @@
                   <td scope="row" class="number_row">
                     <%= index+1 %>
                   </td>
-                  <td>
+                  <td class="font-sizes">
                     <%= item.description %>
                   </td>
-                  <td>
+                  <td class="font-sizes">
                     <%= item.hsnCode %>
                   </td>
-                  <td>
+                  <td class="font-sizes">
                     <%= item.quantity %>
                   </td>
-                  <td>
+                  <td class="font-sizes">
                     <%= item.rate %>
                   </td>
-                  <td class="">
+                  <td class="font-sizes">
                     <%= item.amount %>
                   </td>
                 </tr>
@@ -329,7 +329,9 @@
                     <td colspan="4" style="height: 25px;"></td>
                     <td class="rs_div font-sizes" colspan="1">Net Total</td>
                     <td class="rs_div font-sizes" colspan="1">
-                      <%= netTotal %>
+                      <b>
+                        <%= netTotal %>
+                      </b>
                     </td>
                   </tr>
                   <tr>
