@@ -66,7 +66,7 @@
     }
 
     td {
-      padding: 4px;
+      padding: 2px;
     }
 
     @media only screen and (max-width: 600px) {
@@ -155,18 +155,18 @@
                   <table style="margin-left: 20px;">
                     <tbody>
                       <tr>
-                        <td>
-                          <p class="font-sizes">GST NO:xyzasfgga</p>
+                        <td class="font-sizes">
+                          GST NO:xyzasfgga
                         </td>
                       </tr>
                       <tr>
-                        <td>
-                          <p class="font-sizes">Email:xyz@gmail.com</p>
+                        <td class="font-sizes">
+                          Email:xyz@gmail.com
                         </td>
                       </tr>
                       <tr>
-                        <td>
-                          <p class="font-sizes">ph: +91123456789</p>
+                        <td class="font-sizes">
+                          ph: +91123456789
                         </td>
                       </tr>
                     </tbody>
@@ -176,37 +176,37 @@
                   <table>
                     <tbody>
                       <tr>
-                        <td>
-                          <p class="font-sizes" style="font-weight: bold">Invoice No:<%= invoiceNo %>
-                          </p>
+                        <td class="font-sizes" style="font-weight: bold">
+                          Invoice No:<%= invoiceNo %>
+
                         </td>
-                        <td>
-                          <p class="font-sizes" style="font-weight: bold">Invoice
-                            Date:<%= invoiceDate %>
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <p class="font-sizes" style="font-weight: bold">Your Challan
-                            No:<%= challanNo %>
-                          </p>
-                        </td>
-                        <td>
-                          <p class="font-sizes" style="font-weight: bold">Challan No
-                            Date:<%= challanDate %>
-                          </p>
+                        <td class="font-sizes" style="font-weight: bold">
+                          Invoice
+                          Date:<%= invoiceDate %>
+
                         </td>
                       </tr>
                       <tr>
-                        <td>
-                          <p class="font-sizes" style="font-weight: bold">P.Order No:<%= pOrderNo %>
-                          </p>
+                        <td class="font-sizes" style="font-weight: bold">
+                          Your Challan
+                          No:<%= challanNo %>
+
                         </td>
-                        <td>
-                          <p class="font-sizes" style="font-weight: bold">P.Order
-                            Date:<%= pOrderDate %>
-                          </p>
+                        <td class="font-sizes" style="font-weight: bold">
+                          Challan No
+                          Date:<%= challanDate %>
+
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="font-sizes" style="font-weight: bold">
+                          P.Order No:<%= pOrderNo %>
+
+                        </td>
+                        <td class="font-sizes" style="font-weight: bold">
+                          P.Order
+                          Date:<%= pOrderDate %>
+
                         </td>
                       </tr>
                     </tbody>
@@ -220,7 +220,8 @@
                     <tbody>
                       <tr>
                         <td>
-                          <p class="font-sizes" style="font-weight: bold;">Billing Address:</p>
+                          <p class="font-sizes" style="font-weight: bold; margin-bottom: 2px;">Billing Address:
+                          </p>
                           <p class="font-sizes">
                             <%= billingAddress %>
                           </p>
@@ -248,7 +249,8 @@
                     <tbody>
                       <tr>
                         <td width="50%">
-                          <p class="font-sizes" style="font-weight: bold;">Delivery Address:</p>
+                          <p class="font-sizes" style="font-weight: bold; margin-bottom: 2px;">Delivery Address:
+                          </p>
                           <p class="font-sizes">
                             <%= deliveryAddress %>
                           </p>
@@ -305,7 +307,7 @@
             <tbody>
               <% for (let [index,item] of items.entries()) { %>
                 <tr>
-                  <td scope="row" class="number_row">
+                  <td scope="row" class="number_row font-sizes">
                     <%= index+1 %>
                   </td>
                   <td class="font-sizes">
@@ -327,7 +329,7 @@
                 <% } %>
                   <tr>
                     <td colspan="4" style="height: 25px;"></td>
-                    <td class="rs_div font-sizes" colspan="1">Net Total</td>
+                    <td class="rs_div font-sizes" colspan="1"><b>Net Total</b></td>
                     <td class="rs_div font-sizes" colspan="1">
                       <b>
                         <%= netTotal %>
@@ -345,13 +347,21 @@
                         <tbody>
                           <tr style="border-bottom: none;">
                             <td colspan="4">
-                              <p class="font-sizes" style="font-weight: bold;">Company's Bank Details</p>
-                              <p class="font-sizes" style=" font-weight: bold;">Name: JM INDUSTRIES</p>
-                              <p class="font-sizes" style="display: flex; font-weight: bold;">A/c No.: 344921010000041
+                              <p class="font-sizes" style="font-weight: bold; margin-bottom: 2px;">Company's
+                                Bank Details</p>
+                              <p class="font-sizes" style=" font-weight: bold; margin-bottom: 2px;">Name: JM
+                                INDUSTRIES</p>
+                              <p class="font-sizes" style="display: flex; font-weight: bold; margin-bottom: 2px;">
+                                A/c No.:
+                                344921010000041
                               </p>
-                              <p class="font-sizes" style="font-weight: bold;">Bank: UNION BANK OF INDIA</p>
-                              <p class="font-sizes" style="font-weight: bold;">Branch: THANE-WAGLE ESTATE</p>
-                              <p class="font-sizes" style="font-weight: bold;">IFSC: UBIN0934496</p>
+                              <p class="font-sizes" style="font-weight: bold; margin-bottom: 2px;">Bank:
+                                UNION
+                                BANK OF INDIA</p>
+                              <p class="font-sizes" style="font-weight: bold; margin-bottom: 2px;">Branch:
+                                THANE-WAGLE ESTATE</p>
+                              <p class="font-sizes" style="font-weight: bold;">IFSC:
+                                UBIN0934496</p>
                             </td>
                           </tr>
                         </tbody>
@@ -395,7 +405,9 @@
                           </tr>
                           <tr style=" border-bottom: none;">
                             <td class="rs_div font-sizes" colspan="1">
-                              <%= grandTotal %>
+                              <b>
+                                <%= grandTotal %>
+                              </b>
                             </td>
                           </tr>
                         </tbody>
@@ -421,7 +433,8 @@
                     <p class="font-sizes" style="margin: 0px 0px 60px 0px; font-style: italic; font-weight: bold;">
                       For: J.M. INDUSTRIES</p>
                     <p class="font-sizes" style="font-weight: bold;">Authorised Signatory</p>
-                    <p class="font-sizes">Declaration: We declare that this invoice shows the actual price of the goods
+                    <p class="font-sizes">Declaration: We declare that this invoice shows the actual
+                      price of the goods
                       described and that all particulars are true and correct</p>
 
                   </div>
