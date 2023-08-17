@@ -117,15 +117,16 @@ const getInvoicePdf = async (req, res) => {
     const options = {
       format: "Letter", // or "Letter" for US Letter size
     };
+    const pdfFileName = `invoice_${bill.invoiceNo}.pdf`;
 
     pdf
       .create(html, options)
-      .toFile("public/output.pdf", function (err, result) {
+      .toFile(`public/${pdfFileName}`, function (err, result) {
         if (err) {
           console.error(err);
           res.status(500).send("An error occurred while generating the PDF.");
         } else {
-          const pdfLink = `<a href="/download-pdf">Download Invoice Bill PDF</a>`;
+          const pdfLink = `<a href="/download-pdf/${pdfFileName}">Download Invoice Bill PDF</a>`;
           res.send(pdfLink);
         }
       });
@@ -138,9 +139,10 @@ const getInvoicePdf = async (req, res) => {
 //To download the pdf
 const downloadPdf = async (req, res) => {
   try {
-    const pdfPath = path.join(__dirname, "../public/output.pdf");
+    const pdfFileName = req.params.fileName;
+    const pdfPath = path.join(__dirname, `../public/${pdfFileName}`);
     res.setHeader("Content-Type", "application/pdf");
-    res.setHeader("Content-Disposition", "attachment; filename=output.pdf");
+    res.setHeader("Content-Disposition", `attachment; filename=output.pdf`);
     fs.createReadStream(pdfPath).pipe(res);
   } catch (error) {
     console.error(error);
