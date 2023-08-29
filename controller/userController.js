@@ -65,7 +65,7 @@ const userLogin = async (req, res) => {
               statusCode: 200,
               message: "success",
             },
-            values: updatedData,
+            values: updatedData.authToken.slice(-1),
           });
         }
       } else {
