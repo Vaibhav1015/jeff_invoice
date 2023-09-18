@@ -2,6 +2,7 @@ const Address = require("../models/address");
 
 const addNewAddress = async (req, res) => {
   try {
+    const company = req.body.companyName;
     const address = req.body.address;
     const tel = req.body.tel;
     const gstNo = req.body.gstNo;
@@ -12,6 +13,7 @@ const addNewAddress = async (req, res) => {
       const checkAlreadyGstNoBilling = await Address.find({ gstNo: gstNo });
 
       const newAddress = new Address({
+        companyName: company,
         address: address,
         tel: tel,
         gstNo: gstNo,

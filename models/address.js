@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
 const addressSchema = new mongoose.Schema({
+  companyName: {
+    type: String,
+  },
   address: {
     type: String,
     //   required: true,

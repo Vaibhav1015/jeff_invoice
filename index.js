@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const app = express();
-const port = 3000;
+const port = 3001;
 app.use(bodyParser.json());
 // Middleware to parse JSON in request body
 app.use(express.json());

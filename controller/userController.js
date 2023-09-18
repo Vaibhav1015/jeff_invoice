@@ -59,13 +59,14 @@ const userLogin = async (req, res) => {
             { phoneNo: phone },
             { authToken: 1 }
           );
+          const data = updatedData.authToken.slice(-1);
           res.status(200).send({
             meta: {
               status: true,
               statusCode: 200,
               message: "success",
             },
-            values: updatedData.authToken.slice(-1),
+            data,
           });
         }
       } else {
