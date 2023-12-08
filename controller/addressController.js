@@ -8,7 +8,13 @@ const addNewAddress = async (req, res) => {
     const gstNo = req.body.gstNo;
 
     if (address.length === 0 || tel.length === 0 || gstNo.length === 0) {
-      res.status(400).send({ msg: "Please enter all details" });
+      res.status(400).send({
+        meta: {
+          status: false,
+          statusCode: 400,
+          message: "Please enter all details",
+        },
+      });
     } else {
       const checkAlreadyGstNoBilling = await Address.find({ gstNo: gstNo });
 
@@ -22,16 +28,41 @@ const addNewAddress = async (req, res) => {
       if (checkAlreadyGstNoBilling.length === 0) {
         if (newAddress) {
           const toSaveData = await newAddress.save();
-          res.status(200).send({ msg: "success", AddressData: toSaveData });
+          res.status(200).send({
+            meta: {
+              status: true,
+              statusCode: 200,
+              message: "success",
+            },
+            values: toSaveData,
+          });
         } else {
-          res.status(400).send({ msg: "Something went wrong in data!!" });
+          res.status(400).send({
+            meta: {
+              status: false,
+              statusCode: 400,
+              message: "Something went wrong in data!!",
+            },
+          });
         }
       } else {
-        res.status(400).send({ msg: "This gstNo has already added !!!" });
+        res.status(400).send({
+          meta: {
+            status: false,
+            statusCode: 400,
+            message: "This gstNo has already added !!!",
+          },
+        });
       }
     }
   } catch (error) {
-    res.status(500).json({ error: "Something went wrong" });
+    res.status(500).send({
+      meta: {
+        status: false,
+        statusCode: 500,
+        message: error.message,
+      },
+    });
   }
 };
 
@@ -40,12 +71,31 @@ const getAllAddress = async (req, res) => {
   try {
     const addressData = await Address.find();
     if (addressData.length > 0) {
-      res.status(200).send({ msg: "Success", addressData: addressData });
+      res.status(200).send({
+        meta: {
+          status: true,
+          statusCode: 200,
+          message: "success",
+        },
+        values: addressData,
+      });
     } else {
-      res.status(400).send({ msg: "No Data available" });
+      res.status(400).send({
+        meta: {
+          status: false,
+          statusCode: 400,
+          message: "No Data available",
+        },
+      });
     }
   } catch (error) {
-    res.status(500).json({ error: "Something went wrong" });
+    res.status(500).send({
+      meta: {
+        status: false,
+        statusCode: 500,
+        message: error.message,
+      },
+    });
   }
 };
 

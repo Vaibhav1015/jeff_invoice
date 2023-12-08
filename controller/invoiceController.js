@@ -54,12 +54,31 @@ const addNewInvoice = async (req, res) => {
     });
     if (dataInvoice) {
       const saveData = dataInvoice.save();
-      res.status(200).send({ msg: "success", invoice: dataInvoice });
+      res.status(200).send({
+        meta: {
+          status: true,
+          statusCode: 200,
+          message: "success",
+        },
+        values: dataInvoice,
+      });
     } else {
-      res.status(400).send({ msg: "Something went wrong!!" });
+      res.status(400).send({
+        meta: {
+          status: false,
+          statusCode: 400,
+          message: "Something went wrong.!!",
+        },
+      });
     }
   } catch (error) {
-    return res.status(500).json({ error: "Something went wrong" });
+    return res.status(500).send({
+      meta: {
+        status: false,
+        statusCode: 500,
+        message: "Internal server error",
+      },
+    });
   }
 };
 
@@ -124,15 +143,34 @@ const getInvoicePdf = async (req, res) => {
       .toFile(`public/${pdfFileName}`, function (err, result) {
         if (err) {
           console.error(err);
-          res.status(500).send("An error occurred while generating the PDF.");
+          res.status(400).send({
+            meta: {
+              status: false,
+              statusCode: 400,
+              message: "An error occurred while generating the PDF.",
+            },
+          });
         } else {
-          const pdfLink = `<a href="/download-pdf/${pdfFileName}">Download Invoice Bill PDF</a>`;
-          res.send(pdfLink);
+          // const pdfLink = `<a href="/download-pdf/${pdfFileName}">Download Invoice Bill PDF</a>`;
+          const pdfLink = `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
+          res.status(200).send({
+            meta: {
+              status: true,
+              statusCode: 200,
+              message: "success",
+            },
+            values: pdfLink,
+          });
         }
       });
   } catch (err) {
-    console.error(err);
-    res.status(500).send("An error occurred while generating the PDF.");
+    res.status(500).send({
+      meta: {
+        status: false,
+        statusCode: 500,
+        message: "An error occurred while generating the PDF.",
+      },
+    });
   }
 };
 
@@ -145,8 +183,13 @@ const downloadPdf = async (req, res) => {
     res.setHeader("Content-Disposition", `attachment; filename=output.pdf`);
     fs.createReadStream(pdfPath).pipe(res);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("An error occurred while downloading the PDF.");
+    res.status(500).send({
+      meta: {
+        status: false,
+        statusCode: 500,
+        message: "Internal server error",
+      },
+    });
   }
 };
 
