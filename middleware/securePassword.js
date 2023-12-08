@@ -6,7 +6,11 @@ const securePassword = async (password) => {
     const passwordHash = await bcryptjs.hash(password, 10);
     return passwordHash;
   } catch (error) {
-    res.send(error.message);
+    res.status(500).send({
+      status: false,
+      statusCode: 500,
+      message: error.message,
+    });
   }
 };
 

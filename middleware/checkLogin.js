@@ -8,7 +8,11 @@ const checkLogin = async (req, res, next) => {
     const token = authHeader.slice(7);
 
     if (!token) {
-      return res.status(401).json({ message: "Authorization token missing" });
+      return res.status(401).send({
+        status: false,
+        statusCode: 401,
+        message: "Authorization token missing",
+      });
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET); // Replace with your secret key
 
@@ -16,12 +20,20 @@ const checkLogin = async (req, res, next) => {
       _id: decoded.checkPhone._id,
     });
     if (!user) {
-      return res.status(401).json({ message: "Invalid token" });
+      return res.status(401).send({
+        status: false,
+        statusCode: 401,
+        message: "Invalid token",
+      });
     } else {
       next();
     }
   } catch (error) {
-    res.status(401).json({ message: "Invalid token" });
+    res.status(500).send({
+      status: false,
+      statusCode: 500,
+      message: error.message,
+    });
   }
 };
 
