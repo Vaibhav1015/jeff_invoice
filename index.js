@@ -7,6 +7,16 @@ const port = 3001;
 app.use(bodyParser.json());
 // Middleware to parse JSON in request body
 app.use(express.json());
+const { baseUrl } = require("./static/variables");
+//Swagger api docs file setup
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger-output.json");
+
+app.use(
+  `${baseUrl}/api-docs`,
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument)
+);
 
 // Connect to MongoDB (Replace 'mongodb://localhost/bill-receipt' with your MongoDB connection string)
 mongoose
@@ -25,13 +35,15 @@ mongoose
   });
 
 const invoiceRoute = require("./router/invoiceRouter");
-app.use("/", invoiceRoute);
+app.use(baseUrl, invoiceRoute);
 
 const addressRoute = require("./router/addressRouter");
-app.use("/", addressRoute);
+app.use(baseUrl, addressRoute);
 
 const userRoute = require("./router/userRouter");
-app.use("/", userRoute);
+app.use(baseUrl, userRoute);
+
+app.use("/", (req, resp) => resp.json("My API running 😎"));
 
 // Start the server
 app.listen(port, () => {

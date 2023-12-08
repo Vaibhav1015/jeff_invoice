@@ -60,13 +60,32 @@ const userLogin = async (req, res) => {
             { authToken: 1 }
           );
           const data = updatedData.authToken.slice(-1);
+
+          // Create an object with a "values" property and assign the string as a key
+          // const dataObject = {
+          //   values: {
+          //     [data[0]]: data[0],
+          //   },
+          // };
+
+          // Create an object with a "values" property and assign the string as a value
+          const dataObject = {
+            values: data[0],
+          };
+
+          // You can now use dataObject as needed in your JavaScript code
+
+          const resData = {
+            authToken: dataObject.values,
+          };
+
           res.status(200).send({
             meta: {
               status: true,
               statusCode: 200,
               message: "success",
             },
-            data,
+            values: resData,
           });
         }
       } else {
