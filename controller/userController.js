@@ -1,4 +1,8 @@
-const securePassword = require("../middleware/securePassword");
+const {
+  isValidEmail,
+  isValidPassword,
+  securePassword,
+} = require("../middleware/validation");
 const User = require("../models/user");
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -10,9 +14,9 @@ const registerUser = async (req, res) => {
     const fullName = req.body.fullName;
     const phoneNo = req.body.phoneNo;
     const password = req.body.password;
-    const hashPassword = await securePassword(password);
+    const email = req.body.email;
 
-    if (!fullName || !phoneNo || !password) {
+    if (!fullName || !phoneNo || !password || !email) {
       res.status(400).send({
         meta: {
           status: false,
@@ -20,7 +24,65 @@ const registerUser = async (req, res) => {
           message: "Invalid inputs",
         },
       });
+    } else if (phoneNo.length === 0) {
+      res.status(400).send({
+        meta: {
+          status: false,
+          statusCode: 400,
+          message: "Please enter your mobile number",
+        },
+      });
+    } else if (phoneNo.length !== 10) {
+      res.status(400).send({
+        meta: {
+          status: false,
+          statusCode: 400,
+          message: "The mobile number must be 10 digits",
+        },
+      });
+    } else if (isNaN(phoneNo)) {
+      res.status(400).send({
+        meta: {
+          status: false,
+          statusCode: 400,
+          message: "Please enter valid mobile number",
+        },
+      });
+    } else if (email.length === 0) {
+      return res.status(400).json({
+        meta: {
+          status: false,
+          statusCode: 400,
+          message: "Please enter your email",
+        },
+      });
+    } else if (!isValidEmail(email)) {
+      return res.status(400).json({
+        meta: {
+          status: false,
+          statusCode: 400,
+          message: "Invalid email format",
+        },
+      });
+    } else if (password.length === 0) {
+      return res.status(400).json({
+        meta: {
+          status: false,
+          statusCode: 400,
+          message: "Please enter your password",
+        },
+      });
+    } else if (!isValidPassword(password)) {
+      return res.status(400).json({
+        meta: {
+          status: false,
+          statusCode: 400,
+          message:
+            "Password must be at least 8 characters long, at most 16 characters long, and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
+        },
+      });
     } else {
+      const hashPassword = await securePassword(password);
       const newUser = new User({
         fullName,
         phoneNo,

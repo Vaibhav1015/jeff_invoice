@@ -5,69 +5,84 @@ const path = require("path");
 const ejs = require("ejs");
 const pdf = require("html-pdf");
 const fs = require("fs");
+const User = require("../models/user");
 
 // To add new invoice
 const addNewInvoice = async (req, res) => {
   try {
+    const userId = req.body.userId;
     const billingAddress = req.body.billingAddress;
     const deliveryAddress = req.body.deliveryAddress;
     const items = req.body.items;
-    items.forEach((item) => {
-      item.amount = item.rate * item.quantity;
-    });
+    const isValidUser = await User.findById(userId);
 
-    const netTotalAmount = items.reduce(
-      (total, item) => total + item.amount,
-      0
-    );
-    const netTotal = netTotalAmount;
-    const percentCGst = req.query.cGst;
-    const percentSGst = req.query.sGst;
-    const percentIGst = req.query.iGst;
-    const totalCGst = Math.ceil(
-      (netTotal / 100) * (percentCGst ? percentCGst : 0)
-    );
-    const totalSGst = Math.ceil(
-      (netTotal / 100) * (percentSGst ? percentSGst : 0)
-    );
-    const totalIGst = Math.ceil(
-      (netTotal / 100) * (percentIGst ? percentIGst : 0)
-    );
-    const grandTotal = netTotal + totalCGst + totalIGst + totalSGst;
-    const totalAmountInWords = price_in_words(grandTotal);
-    const dataInvoice = new Bill({
-      invoiceNo: req.body.invoiceNo,
-      challanNo: req.body.challanNo,
-      pOrderNo: req.body.pOrderNo,
-      invoiceDate: req.body.invoiceDate,
-      challanDate: req.body.challanDate,
-      pOrderDate: req.body.pOrderDate,
-      billingAddress: billingAddress,
-      deliveryAddress: deliveryAddress,
-      items: items,
-      netTotal: netTotal,
-      cGst: totalCGst,
-      sGst: totalSGst,
-      iGst: totalIGst,
-      grandTotal: grandTotal,
-      totalAmountInWords: totalAmountInWords,
-    });
-    if (dataInvoice) {
-      const saveData = dataInvoice.save();
-      res.status(200).send({
-        meta: {
-          status: true,
-          statusCode: 200,
-          message: "success",
-        },
-        values: dataInvoice,
+    if (isValidUser) {
+      items.forEach((item) => {
+        item.amount = item.rate * item.quantity;
       });
+
+      const netTotalAmount = items.reduce(
+        (total, item) => total + item.amount,
+        0
+      );
+      const netTotal = netTotalAmount;
+      const percentCGst = req.body.cGst;
+      const percentSGst = req.body.sGst;
+      const percentIGst = req.body.iGst;
+      const totalCGst = Math.ceil(
+        (netTotal / 100) * (percentCGst ? percentCGst : 0)
+      );
+      const totalSGst = Math.ceil(
+        (netTotal / 100) * (percentSGst ? percentSGst : 0)
+      );
+      const totalIGst = Math.ceil(
+        (netTotal / 100) * (percentIGst ? percentIGst : 0)
+      );
+      const grandTotal = netTotal + totalCGst + totalIGst + totalSGst;
+      const totalAmountInWords = price_in_words(grandTotal);
+      const dataInvoice = new Bill({
+        userId: userId,
+        invoiceNo: req.body.invoiceNo,
+        challanNo: req.body.challanNo,
+        pOrderNo: req.body.pOrderNo,
+        invoiceDate: req.body.invoiceDate,
+        challanDate: req.body.challanDate,
+        pOrderDate: req.body.pOrderDate,
+        billingAddress: billingAddress,
+        deliveryAddress: deliveryAddress,
+        items: items,
+        netTotal: netTotal,
+        cGst: totalCGst,
+        sGst: totalSGst,
+        iGst: totalIGst,
+        grandTotal: grandTotal,
+        totalAmountInWords: totalAmountInWords,
+      });
+      if (dataInvoice) {
+        await dataInvoice.save();
+        res.status(200).send({
+          meta: {
+            status: true,
+            statusCode: 200,
+            message: "success",
+          },
+          values: dataInvoice,
+        });
+      } else {
+        res.status(400).send({
+          meta: {
+            status: false,
+            statusCode: 400,
+            message: "Something went wrong.!!",
+          },
+        });
+      }
     } else {
       res.status(400).send({
         meta: {
           status: false,
           statusCode: 400,
-          message: "Something went wrong.!!",
+          message: "User not found",
         },
       });
     }
@@ -89,13 +104,14 @@ process.env["OPENSSL_CONF"] = path.resolve(
 );
 
 // Date Conversion fn
-const convDate = (newDate) => {
+const convertDate = (newDate) => {
   return new Date(newDate).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "numeric",
     year: "numeric",
   });
 };
+
 //To Generate pdf get request
 const getInvoicePdf = async (req, res) => {
   try {
@@ -108,13 +124,12 @@ const getInvoicePdf = async (req, res) => {
 
     const templateData = {
       // Add your data here to replace the placeholders in the template
-      // ... (your existing data)
       invoiceNo: bill.invoiceNo,
       challanNo: bill.challanNo,
       pOrderNo: bill.pOrderNo,
-      invoiceDate: convDate(bill.invoiceDate),
-      challanDate: convDate(bill.challanDate),
-      pOrderDate: convDate(bill.pOrderDate),
+      invoiceDate: convertDate(bill.invoiceDate),
+      challanDate: convertDate(bill.challanDate),
+      pOrderDate: convertDate(bill.pOrderDate),
       deliveryAddress: bill.deliveryAddress.address,
       deliveryTel: bill.deliveryAddress.tel,
       deliveryGst: bill.deliveryAddress.gstNo,
@@ -193,8 +208,54 @@ const downloadPdf = async (req, res) => {
   }
 };
 
+//Get bills by userId
+const getBills = async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    const isValidUser = await User.findById(userId);
+    if (isValidUser) {
+      const checkUserBills = await Bill.find({ userId: userId });
+      if (checkUserBills.length > 0) {
+        res.status(200).send({
+          meta: {
+            status: true,
+            statusCode: 200,
+            message: "success",
+          },
+          values: checkUserBills,
+        });
+      } else {
+        return res.status(400).send({
+          meta: {
+            status: false,
+            statusCode: 400,
+            message: "No Data available",
+          },
+        });
+      }
+    } else {
+      return res.status(404).send({
+        meta: {
+          status: false,
+          statusCode: 404,
+          message: "User not found.",
+        },
+      });
+    }
+  } catch (error) {
+    return res.status(500).send({
+      meta: {
+        status: false,
+        statusCode: 500,
+        message: "Internal server error",
+      },
+    });
+  }
+};
+
 module.exports = {
   addNewInvoice,
   getInvoicePdf,
   downloadPdf,
+  getBills,
 };
