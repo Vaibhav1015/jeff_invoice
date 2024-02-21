@@ -7,6 +7,7 @@ const pdf = require("html-pdf");
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 const User = require("../models/user");
+const phantomPath = require("phantomjs-prebuilt").path;
 
 // To add new invoice
 const addNewInvoice = async (req, res) => {
@@ -107,11 +108,13 @@ process.env["OPENSSL_CONF"] = path.resolve(
 
 // Date Conversion fn
 const convertDate = (newDate) => {
-  return new Date(newDate).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "numeric",
-    year: "numeric",
-  });
+  return new Date(newDate)
+    .toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    })
+    .replace(/\//g, "-");
 };
 
 //To Generate pdf get request
@@ -161,74 +164,75 @@ const getInvoicePdf = async (req, res) => {
       totalAmountInWords: bill.totalAmountInWords,
     };
 
-    // const html = await ejs.renderFile(templatePath, templateData);
-
-    // // PDF options
-    // const options = {
-    //   format: "Letter", // or "Letter" for US Letter size
-    // };
-    // const pdfFileName = `invoice_${bill.invoiceNo}.pdf`;
-
-    // pdf
-    //   .create(html, options)
-    //   .toFile(`public/${pdfFileName}`, function (err, result) {
-    //     if (err) {
-    //       console.error(err);
-    //       res.status(400).send({
-    //         meta: {
-    //           status: false,
-    //           statusCode: 400,
-    //           message: "An error occurred while generating the PDF.",
-    //         },
-    //       });
-    //     } else {
-    //       // const pdfLink = `<a href="/download-pdf/${pdfFileName}">Download Invoice Bill PDF</a>`;
-    //       const pdfLink = `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
-    //       res.status(200).send({
-    //         meta: {
-    //           status: true,
-    //           statusCode: 200,
-    //           message: "success",
-    //         },
-    //         values: pdfLink,
-    //       });
-    //     }
-    //   });
-
     const html = await ejs.renderFile(templatePath, templateData);
-    const browserExecutablePath = puppeteer.executablePath();
 
-    const browser = await puppeteer.launch({
-      executablePath: browserExecutablePath,
-    });
-    const page = await browser.newPage();
-
-    // Set the page content with your HTML
-    await page.setContent(html);
-
-    // Generate PDF using puppeteer
-    const pdfBuffer = await page.pdf({ format: "Letter" });
-
+    // PDF options
+    const options = {
+      format: "Letter", // or "Letter" for US Letter size
+      phantomPath: phantomPath,
+    };
     const pdfFileName = `invoice_${bill.invoiceNo}.pdf`;
 
-    // Save the PDF file
-    fs.writeFileSync(`public/${pdfFileName}`, pdfBuffer);
+    pdf
+      .create(html, options)
+      .toFile(`public/${pdfFileName}`, function (err, result) {
+        if (err) {
+          console.error(err);
+          res.status(400).send({
+            meta: {
+              status: false,
+              statusCode: 400,
+              message: "An error occurred while generating the PDF.",
+            },
+          });
+        } else {
+          // const pdfLink = `<a href="/download-pdf/${pdfFileName}">Download Invoice Bill PDF</a>`;
+          const pdfLink = `http://localhost:3000/api/download-pdf/${pdfFileName}`;
+          res.status(200).send({
+            meta: {
+              status: true,
+              statusCode: 200,
+              message: "success",
+            },
+            values: pdfLink,
+          });
+        }
+      });
 
-    const pdfLink = `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
-    //  `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
-    // `http://localhost:3000/api/download-pdf/${pdfFileName}`;
+    // const html = await ejs.renderFile(templatePath, templateData);
+    // const browserExecutablePath = puppeteer.executablePath();
 
-    // Close the browser
-    await browser.close();
+    // const browser = await puppeteer.launch({
+    //   executablePath: browserExecutablePath,
+    // });
+    // const page = await browser.newPage();
 
-    res.status(200).send({
-      meta: {
-        status: true,
-        statusCode: 200,
-        message: "success",
-      },
-      values: pdfLink,
-    });
+    // // Set the page content with your HTML
+    // await page.setContent(html);
+
+    // // Generate PDF using puppeteer
+    // const pdfBuffer = await page.pdf({ format: "Letter" });
+
+    // const pdfFileName = `invoice_${bill.invoiceNo}.pdf`;
+
+    // // Save the PDF file
+    // fs.writeFileSync(`public/${pdfFileName}`, pdfBuffer);
+
+    // const pdfLink = `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
+    // //  `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
+    // // `http://localhost:3000/api/download-pdf/${pdfFileName}`;
+
+    // // Close the browser
+    // await browser.close();
+
+    // res.status(200).send({
+    //   meta: {
+    //     status: true,
+    //     statusCode: 200,
+    //     message: "success",
+    //   },
+    //   values: pdfLink,
+    // });
   } catch (err) {
     console.error(err);
     res.status(500).send({

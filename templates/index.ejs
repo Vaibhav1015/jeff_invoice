@@ -210,19 +210,13 @@
                           P.Order No:<%= pOrderNo %>
 
                         </td>
-                        <td class="font-sizes <%= pOrderDate2 ? 'with-margin' : '' %>"
-                          style="font-weight: bold; display: flex;">
-                          P.Order Date:
-                          <div>
-                            <p>
-                              <%= pOrderDate %>
-                            </p>
+                        <td class="font-sizes <%= pOrderDate2 ? 'with-margin' : '' %>" style="font-weight: bold;">
+                          P.Order Date: <%= pOrderDate %>
                             <% if (pOrderDate2 !==undefined && pOrderDate2 !==null) { %>
-                              <p>
-                                <%= pOrderDate2 %>
-                              </p>
-                              <% } %>
-                          </div>
+
+                              / <%= pOrderDate2 %>
+
+                                <% } %>
                         </td>
                       </tr>
                     </tbody>
