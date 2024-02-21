@@ -105,6 +105,10 @@
       margin-bottom: 0;
       border-collapse: collapse;
     }
+
+    .with-margin {
+      margin-top: 9px;
+    }
   </style>
 </head>
 
@@ -159,17 +163,17 @@
                     <tbody>
                       <tr>
                         <td class="font-sizes">
-                          GST NO:xyzasfgga
+                          GST NO:27AVWPM6966E1ZR
                         </td>
                       </tr>
                       <tr>
                         <td class="font-sizes">
-                          Email:xyz@gmail.com
+                          Email:jmindustries104@gmail.com
                         </td>
                       </tr>
                       <tr>
                         <td class="font-sizes">
-                          ph: +91123456789
+                          ph: +919773083075 / +918082188842
                         </td>
                       </tr>
                     </tbody>
@@ -206,16 +210,24 @@
                           P.Order No:<%= pOrderNo %>
 
                         </td>
-                        <td class="font-sizes" style="font-weight: bold">
-                          P.Order
-                          Date:<%= pOrderDate %>
-
+                        <td class="font-sizes <%= pOrderDate2 ? 'with-margin' : '' %>"
+                          style="font-weight: bold; display: flex;">
+                          P.Order Date:
+                          <div>
+                            <p>
+                              <%= pOrderDate %>
+                            </p>
+                            <% if (pOrderDate2 !==undefined && pOrderDate2 !==null) { %>
+                              <p>
+                                <%= pOrderDate2 %>
+                              </p>
+                              <% } %>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </td>
-
               </tr>
               <tr style="border-bottom: none; ">
                 <td width="50%">
@@ -433,9 +445,12 @@
               <tr>
                 <td>
                   <div class="" style="margin: 5px 0px 0px 0px; padding: 5px;">
-                    <p class="font-sizes" style="margin: 0px 0px 60px 0px; font-style: italic; font-weight: bold;">
-                      For: J.M. INDUSTRIES</p>
-                    <p class="font-sizes" style="font-weight: bold;">Authorised Signatory</p>
+                    <div style="text-align: right; margin-bottom: 4px;">
+                      <p class="font-sizes" style="margin: 0px 0px 60px 0px; font-style: italic; font-weight: bold;">
+                        For: J.M. INDUSTRIES</p>
+                      <p class="font-sizes" style="font-weight: bold;">Authorised Signatory</p>
+                    </div>
+
                     <p class="font-sizes">Declaration: We declare that this invoice shows the actual
                       price of the goods
                       described and that all particulars are true and correct</p>

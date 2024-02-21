@@ -4,6 +4,7 @@ require("dotenv").config();
 const path = require("path");
 const ejs = require("ejs");
 const pdf = require("html-pdf");
+const puppeteer = require("puppeteer");
 const fs = require("fs");
 const User = require("../models/user");
 
@@ -48,6 +49,7 @@ const addNewInvoice = async (req, res) => {
         invoiceDate: req.body.invoiceDate,
         challanDate: req.body.challanDate,
         pOrderDate: req.body.pOrderDate,
+        pOrderDate2: req.body.pOrderDate2,
         billingAddress: billingAddress,
         deliveryAddress: deliveryAddress,
         items: items,
@@ -120,6 +122,19 @@ const getInvoicePdf = async (req, res) => {
     if (!bill) {
       return res.status(404).json({ error: "Bill not found" });
     }
+
+    const isAvailablePOrderDate2 = bill.pOrderDate2;
+
+    console.log(isAvailablePOrderDate2, "<<<<<<orderDate");
+
+    let pOrderDateSecond = convertDate(isAvailablePOrderDate2);
+
+    if (!isAvailablePOrderDate2 || isAvailablePOrderDate2 === undefined) {
+      pOrderDateSecond = undefined;
+    }
+
+    console.log(pOrderDateSecond, "<<<<<let porder date");
+
     const templatePath = path.join(__dirname, "../templates/index.ejs");
 
     const templateData = {
@@ -130,6 +145,7 @@ const getInvoicePdf = async (req, res) => {
       invoiceDate: convertDate(bill.invoiceDate),
       challanDate: convertDate(bill.challanDate),
       pOrderDate: convertDate(bill.pOrderDate),
+      pOrderDate2: pOrderDateSecond,
       deliveryAddress: bill.deliveryAddress.address,
       deliveryTel: bill.deliveryAddress.tel,
       deliveryGst: bill.deliveryAddress.gstNo,
@@ -145,39 +161,71 @@ const getInvoicePdf = async (req, res) => {
       totalAmountInWords: bill.totalAmountInWords,
     };
 
+    // const html = await ejs.renderFile(templatePath, templateData);
+
+    // // PDF options
+    // const options = {
+    //   format: "Letter", // or "Letter" for US Letter size
+    // };
+    // const pdfFileName = `invoice_${bill.invoiceNo}.pdf`;
+
+    // pdf
+    //   .create(html, options)
+    //   .toFile(`public/${pdfFileName}`, function (err, result) {
+    //     if (err) {
+    //       console.error(err);
+    //       res.status(400).send({
+    //         meta: {
+    //           status: false,
+    //           statusCode: 400,
+    //           message: "An error occurred while generating the PDF.",
+    //         },
+    //       });
+    //     } else {
+    //       // const pdfLink = `<a href="/download-pdf/${pdfFileName}">Download Invoice Bill PDF</a>`;
+    //       const pdfLink = `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
+    //       res.status(200).send({
+    //         meta: {
+    //           status: true,
+    //           statusCode: 200,
+    //           message: "success",
+    //         },
+    //         values: pdfLink,
+    //       });
+    //     }
+    //   });
+
     const html = await ejs.renderFile(templatePath, templateData);
 
-    // PDF options
-    const options = {
-      format: "Letter", // or "Letter" for US Letter size
-    };
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+
+    // Set the page content with your HTML
+    await page.setContent(html);
+
+    // Generate PDF using puppeteer
+    const pdfBuffer = await page.pdf({ format: "Letter" });
+
     const pdfFileName = `invoice_${bill.invoiceNo}.pdf`;
 
-    pdf
-      .create(html, options)
-      .toFile(`public/${pdfFileName}`, function (err, result) {
-        if (err) {
-          console.error(err);
-          res.status(400).send({
-            meta: {
-              status: false,
-              statusCode: 400,
-              message: "An error occurred while generating the PDF.",
-            },
-          });
-        } else {
-          // const pdfLink = `<a href="/download-pdf/${pdfFileName}">Download Invoice Bill PDF</a>`;
-          const pdfLink = `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
-          res.status(200).send({
-            meta: {
-              status: true,
-              statusCode: 200,
-              message: "success",
-            },
-            values: pdfLink,
-          });
-        }
-      });
+    // Save the PDF file
+    fs.writeFileSync(`public/${pdfFileName}`, pdfBuffer);
+
+    const pdfLink = `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
+    //  `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
+    // `http://localhost:3000/api/download-pdf/${pdfFileName}`;
+
+    // Close the browser
+    await browser.close();
+
+    res.status(200).send({
+      meta: {
+        status: true,
+        statusCode: 200,
+        message: "success",
+      },
+      values: pdfLink,
+    });
   } catch (err) {
     res.status(500).send({
       meta: {
@@ -190,6 +238,25 @@ const getInvoicePdf = async (req, res) => {
 };
 
 //To download the pdf
+// const downloadPdf = async (req, res) => {
+//   try {
+//     const pdfFileName = req.params.fileName;
+//     const pdfPath = path.join(__dirname, `../public/${pdfFileName}`);
+//     res.setHeader("Content-Type", "application/pdf");
+//     res.setHeader("Content-Disposition", `attachment; filename=output.pdf`);
+//     fs.createReadStream(pdfPath).pipe(res);
+//   } catch (error) {
+//     res.status(500).send({
+//       meta: {
+//         status: false,
+//         statusCode: 500,
+//         message: "Internal server error",
+//       },
+//     });
+//   }
+// };
+
+// To download the pdf
 const downloadPdf = async (req, res) => {
   try {
     const pdfFileName = req.params.fileName;

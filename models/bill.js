@@ -25,6 +25,9 @@ const billSchema = new mongoose.Schema(
     pOrderDate: {
       type: Date,
     },
+    pOrderDate2: {
+      type: Date,
+    },
     billingAddress: {
       address: {
         type: String,
