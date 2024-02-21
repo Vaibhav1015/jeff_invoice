@@ -128,15 +128,11 @@ const getInvoicePdf = async (req, res) => {
 
     const isAvailablePOrderDate2 = bill.pOrderDate2;
 
-    console.log(isAvailablePOrderDate2, "<<<<<<orderDate");
-
     let pOrderDateSecond = convertDate(isAvailablePOrderDate2);
 
     if (!isAvailablePOrderDate2 || isAvailablePOrderDate2 === undefined) {
       pOrderDateSecond = undefined;
     }
-
-    console.log(pOrderDateSecond, "<<<<<let porder date");
 
     const templatePath = path.join(__dirname, "../templates/index.ejs");
 
