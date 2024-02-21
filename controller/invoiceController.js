@@ -187,7 +187,7 @@ const getInvoicePdf = async (req, res) => {
           });
         } else {
           // const pdfLink = `<a href="/download-pdf/${pdfFileName}">Download Invoice Bill PDF</a>`;
-          const pdfLink = `http://localhost:3000/api/download-pdf/${pdfFileName}`;
+          const pdfLink = `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
           res.status(200).send({
             meta: {
               status: true,
