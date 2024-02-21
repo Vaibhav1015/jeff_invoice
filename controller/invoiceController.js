@@ -196,8 +196,11 @@ const getInvoicePdf = async (req, res) => {
     //   });
 
     const html = await ejs.renderFile(templatePath, templateData);
+    const browserExecutablePath = puppeteer.executablePath();
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      executablePath: browserExecutablePath,
+    });
     const page = await browser.newPage();
 
     // Set the page content with your HTML
@@ -211,12 +214,12 @@ const getInvoicePdf = async (req, res) => {
     // Save the PDF file
     fs.writeFileSync(`public/${pdfFileName}`, pdfBuffer);
 
-    const pdfLink = `http://localhost:3000/api/download-pdf/${pdfFileName}`;
+    const pdfLink = `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
     //  `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
     // `http://localhost:3000/api/download-pdf/${pdfFileName}`;
 
     // Close the browser
-    // await browser.close();
+    await browser.close();
 
     res.status(200).send({
       meta: {

@@ -31,6 +31,7 @@
     "openssl": "^2.0.0",
     "path": "^0.12.7",
     "puppeteer": "^22.1.0",
+    "puppeteer-core": "^22.1.0",
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
