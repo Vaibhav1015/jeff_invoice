@@ -211,12 +211,12 @@ const getInvoicePdf = async (req, res) => {
     // Save the PDF file
     fs.writeFileSync(`public/${pdfFileName}`, pdfBuffer);
 
-    const pdfLink = `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
+    const pdfLink = `http://localhost:3000/api/download-pdf/${pdfFileName}`;
     //  `https://invoice-bill.onrender.com/api/download-pdf/${pdfFileName}`;
     // `http://localhost:3000/api/download-pdf/${pdfFileName}`;
 
     // Close the browser
-    await browser.close();
+    // await browser.close();
 
     res.status(200).send({
       meta: {
@@ -227,6 +227,7 @@ const getInvoicePdf = async (req, res) => {
       values: pdfLink,
     });
   } catch (err) {
+    console.error(err);
     res.status(500).send({
       meta: {
         status: false,
