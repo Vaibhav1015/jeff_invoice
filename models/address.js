@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment-timezone");
 
 const addressSchema = new mongoose.Schema(
   {
@@ -20,6 +21,10 @@ const addressSchema = new mongoose.Schema(
     gstNo: {
       type: String,
       //   required: true,
+    },
+    createdAt: {
+      type: String,
+      default: () => moment.utc().tz("Asia/Kolkata").format(),
     },
   },
   { versionKey: false }

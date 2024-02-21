@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const moment = require("moment-timezone");
 
 const billSchema = new mongoose.Schema(
   {
@@ -103,6 +104,10 @@ const billSchema = new mongoose.Schema(
     totalAmountInWords: {
       type: String,
       // required: true,
+    },
+    createdAt: {
+      type: String,
+      default: () => moment.utc().tz("Asia/Kolkata").format(),
     },
   },
   { versionKey: false }
